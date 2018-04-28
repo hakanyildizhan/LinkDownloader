@@ -1,0 +1,9 @@
+.vs/
+*.user
+*.vspscc
+*.vssscc
+*.suo
+obj/
+[Bb]in
+[Dd]ebug*/
+[Rr]elease*/
