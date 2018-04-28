@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Links>
-  
+  <Link title="NormalLink" url="https://raw.githubusercontent.com/hakanyildizhan/LinkDownloader/master/SamplePictures/moon1.jpg"></Link>
+  <Link title="IncrementalLink" url="https://raw.githubusercontent.com/hakanyildizhan/LinkDownloader/master/SamplePictures/moon*.jpg [1-3]"></Link>
 </Links>
