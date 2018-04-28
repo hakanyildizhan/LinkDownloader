@@ -10,7 +10,7 @@ Sometimes you need files, photos or clips from the web for personal use, and dow
 * ... and so on
 
 It is tiresome to input each link in the address bar and initiate downloads manually, so you could simply do this:
-**https://raw.githubusercontent.com/hakanyildizhan/LinkDownloader/master/SamplePictures/moon*.jpg [1-3]**
+**.../moon*.jpg [1-3]**
 
 The pattern is applied on the asterisked part of the link.
 
