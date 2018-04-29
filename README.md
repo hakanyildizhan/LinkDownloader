@@ -18,7 +18,7 @@ The pattern is applied on the asterisked part of the link.
 ## How To Use
 Provide links at the console separated by semicolon (;) or place the links in the Links.xml in the provided structure.
 
-For pattern matching, simply put an asterisk (&ast;) on the numeric part that changes, and than the numeric range at the end in brackets.
+For pattern matching, simply put an asterisk (&ast;) on the numeric part that changes, and then the numeric range at the end in brackets.
 
 Works with numerics with leading zeroes as well. (such as 01, 02.. etc)
 
@@ -30,6 +30,7 @@ Refer to app.config in order to change additional settings, including number of 
 
 * Get links from either direct input on console or xml file
 * Download direct links as well as generating incremental links from patterns such as [1-10], [02-25] etc.
+* Check and report broken links, before initiating jobs
 * Respect maximum simultaneous download limit
 
 ## Development and contributing
