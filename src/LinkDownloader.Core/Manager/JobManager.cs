@@ -4,9 +4,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace LinkDownloader.Core.Manager
@@ -77,7 +74,7 @@ namespace LinkDownloader.Core.Manager
 			LimitedConcurrencyLevelTaskScheduler scheduler = new LimitedConcurrencyLevelTaskScheduler(Preferences.SimultaneousDownloads);
 			TaskFactory factory = new TaskFactory(scheduler);
 
-			await factory.StartNew(async () =>
+			Task t = await factory.StartNew(async () =>
 			{
 				for (int i = 0; i < Jobs.Count; i++)
 				{
@@ -85,8 +82,7 @@ namespace LinkDownloader.Core.Manager
 					await Jobs[i + 1].ExecuteAsync();
 				}
 			});
-
-			Debug.WriteLine("All jobs finished.");
+			t.Wait();
 		}
 
 		public void JobCompletedHandler(object sender, EventArgs e)

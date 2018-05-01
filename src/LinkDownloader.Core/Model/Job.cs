@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace LinkDownloader.Core.Model
@@ -26,7 +22,8 @@ namespace LinkDownloader.Core.Model
 		{
 			using (WebClient wc = new WebClient())
 			{
-				wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+				wc.DownloadProgressChanged += Wc_DownloadProgressChanged;
+				wc.DownloadFileCompleted += Wc_DownloadFileCompleted;
 
 				HttpWebRequest request = WebRequest.Create(Link.Url) as HttpWebRequest;
 				request.Method = "HEAD";
@@ -67,16 +64,11 @@ namespace LinkDownloader.Core.Model
 			NotifyJobCompleted();
 		}
 
-		private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+		private void Wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
 		{
 			PercentageCompleted = e.ProgressPercentage;
-			if (e.BytesReceived == e.TotalBytesToReceive || PercentageCompleted.Equals(100))
-			{
-				Status = JobStatus.Completed;
-				NotifyJobCompleted();
-			}
 			
-			else if (!_progressIntervalReached && PercentageCompleted % Preferences.ProgressReportInterval == 0 && PercentageCompleted != 0)
+			if (!PercentageCompleted.Equals(100) && !_progressIntervalReached && PercentageCompleted % Preferences.ProgressReportInterval == 0 && PercentageCompleted != 0)
 			{
 				_progressIntervalReached = true;
 				Debug.WriteLine($"Job with ID {Id}: {PercentageCompleted}% completed");

@@ -2,9 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace LinkDownloader.Core.Rule.Model
 {
@@ -38,7 +36,7 @@ namespace LinkDownloader.Core.Rule.Model
 					string rangeStartExpression = match.Groups[1].Value;
 					string rangeEndExpression = match.Groups[2].Value;
 
-					if (Convert.ToUInt16(rangeStartExpression) < Convert.ToUInt16(rangeEndExpression))
+					if (Convert.ToUInt32(rangeStartExpression) < Convert.ToUInt32(rangeEndExpression))
 					{
 						isValid = true;
 						GenerateLinks(link, rangeStartExpression, rangeEndExpression);
@@ -51,13 +49,13 @@ namespace LinkDownloader.Core.Rule.Model
 
 		private void GenerateLinks(Link link, string rangeStartExpression, string rangeEndExpression)
 		{
-			for (int i = Convert.ToUInt16(rangeStartExpression); i < Convert.ToUInt16(rangeEndExpression) + 1; i++)
+			for (uint i = Convert.ToUInt32(rangeStartExpression); i < Convert.ToUInt32(rangeEndExpression) + 1; i++)
 			{
 				Match match = Regex.Match(link.Url, @"(\s+\[\d+-\d+\])$");
 				if (match.Success)
 				{
 					string url = link.Url.Replace(match.Groups[1].Value, string.Empty);
-					int precedingZeroes = rangeStartExpression.Count(c => c == '0');
+					int precedingZeroes = NumberHelper.GetPrecedingZeroes(rangeStartExpression);
 					url = url.Replace("*", i.ToString().PadLeft(precedingZeroes+1, '0'));
 					string linkTitle = link.Title + i.ToString();
 					ProcessedLinkList.Add(new Link

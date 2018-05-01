@@ -41,12 +41,14 @@ namespace LinkDownloader.Console
 				System.Console.WriteLine("Starting jobs.");
 				JobManager manager = new JobManager(linkList);
 				manager.RunJobs().Wait();
+				System.Console.WriteLine("All jobs finished.");
 			}
 			
 			else
-				System.Console.WriteLine("No links found. Exiting.");
+				System.Console.WriteLine("No links found.");
 
-			System.Console.ReadLine();
+			System.Console.WriteLine("Press any key to exit.");
+			System.Console.ReadKey();
 		}
 
 		private static void SetPreferences()
